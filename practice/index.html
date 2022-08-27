@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Using API</title>
+</head>
+
+<body>
+    <button onclick="getFunc()">Get Data</button>
+    <button onclick="setFunc()">Set Data</button>
+    <button onclick="putFunc()">Put Data</button>
+    <button onclick="patchFunc()">Patch Data</button>
+    <button onclick="deleteFunc()">Delete Data</button>
+    <button onclick="filter1Func()">Filter1 Data</button>
+    <button onclick="filter2Func()">Filter2 Data</button>
+
+    <!-- Script -->
+    <script>
+        // get data
+        const getFunc = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts/1')
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+
+        // set data (Create a new resource)
+        const setFunc = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title: 'foo',
+                    body: 'bar',
+                    userId: 1,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+
+        // put data (Create a new resource || Replace, if the resource exists)
+        const putFunc = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts/1', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: 1,
+                    title: 'foo',
+                    body: 'bar',
+                    userId: 1,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+
+        // patch data (Partially update an existing resource)
+        const patchFunc = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts/1', {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    title: 'foo',
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+
+        // delete data
+        const deleteFunc = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts/1', {
+                method: 'DELETE',
+            });
+        };
+
+        // filter1 data
+        const filter1Func = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+
+        // filter2 data
+        const filter2Func = () => {
+            fetch('https://jsonplaceholder.typicode.com/posts/1/comments')
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        };
+    </script>
+</body>
+
+</html>
